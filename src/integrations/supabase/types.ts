@@ -14,16 +14,181 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      family_bookmarks: {
+        Row: {
+          document_id: string
+          user_id: string
+        }
+        Insert: {
+          document_id: string
+          user_id?: string
+        }
+        Update: {
+          document_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "family_bookmarks_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "family_documents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      family_documents: {
+        Row: {
+          category: string
+          content_html: string
+          id: string
+          source_path: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          content_html: string
+          id: string
+          source_path: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          content_html?: string
+          id?: string
+          source_path?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      family_events: {
+        Row: {
+          created_by: string
+          event_date: string
+          id: string
+          title: string
+        }
+        Insert: {
+          created_by?: string
+          event_date: string
+          id?: string
+          title: string
+        }
+        Update: {
+          created_by?: string
+          event_date?: string
+          id?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      family_invitations: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          invited_by: string | null
+          revoked: boolean
+          role: Database["public"]["Enums"]["family_role"]
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          invited_by?: string | null
+          revoked?: boolean
+          role?: Database["public"]["Enums"]["family_role"]
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          invited_by?: string | null
+          revoked?: boolean
+          role?: Database["public"]["Enums"]["family_role"]
+        }
+        Relationships: []
+      }
+      family_tasks: {
+        Row: {
+          created_at: string
+          created_by: string
+          done: boolean
+          id: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string
+          done?: boolean
+          id?: string
+          title: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          done?: boolean
+          id?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string
+          display_name: string
+          id: string
+          preferences: Json
+        }
+        Insert: {
+          avatar_url?: string
+          display_name?: string
+          id: string
+          preferences?: Json
+        }
+        Update: {
+          avatar_url?: string
+          display_name?: string
+          id?: string
+          preferences?: Json
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["family_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["family_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["family_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      claim_family_invitation: { Args: never; Returns: boolean }
+      has_family_role: {
+        Args: { _role: Database["public"]["Enums"]["family_role"] }
+        Returns: boolean
+      }
+      is_family_member: { Args: never; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      family_role: "admin" | "member"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +315,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      family_role: ["admin", "member"],
+    },
   },
 } as const
