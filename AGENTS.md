@@ -8,3 +8,8 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Application architecture
+- Build public Ezeme pages as TanStack routes sharing a single branded layout and semantic CSS design system, so navigation and presentation stay consistent.
+- Keep imported public source descriptions in a browser-safe content module; never publish the uploaded private family records or infrastructure files.
+- Treat generated photographs as illustrative imagery rather than evidence of existing Ezeme facilities; display their illustrative status where they appear.
