@@ -1,24 +1,26 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { ArrowUpRight, MapPin, ArrowDown } from 'lucide-react';
+import { SiteLayout, TextLink } from '@/components/ezeme-layout';
+import { Button } from '@/components/ui/button';
+import { domains, businesses, records, pageHead } from '@/lib/ezeme';
+import architecture from '@/assets/ezeme-architecture.jpg';
+import workshop from '@/assets/ezeme-workshop.jpg';
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
-  component: Index,
-});
+export const Route = createFileRoute('/')({ head: () => pageHead('A Nigerian family enterprise', 'Ezeme is building ten industry sectors in five connected domains under one ownership. Headquartered in Nkpor, Anambra State, Nigeria.'), component: Index });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
+ return <SiteLayout>
+  <section className="home-hero">
+   <img className="hero-photo" src={architecture} alt="Monochrome architectural study of a tropical concrete colonnade" width={1920} height={1088} fetchPriority="high" />
+   <div className="hero-wash" />
+   <div className="site-wrap hero-content"><p className="eyebrow">ONE FAMILY. A SHARED HORIZON.</p><h1>Ezeme.<br />Ten sectors.<br /><em>One ownership.</em></h1><p className="hero-description">A Nigerian family enterprise building connected businesses — and an institution that endures across generations.</p><Button variant="hero" asChild className="hero-cta"><Link to="/sectors">Explore our sectors <ArrowUpRight /></Link></Button></div>
+   <div className="hero-bottom"><div className="site-wrap"><span><MapPin size={12} /> Nkpor, Anambra State, Nigeria</span><span className="hero-caption">Architectural study · Illustrative imagery</span><a href="#the-group" aria-label="Discover the group"><ArrowDown size={18} /></a></div></div>
+  </section>
+  <section className="stats-bar" aria-label="Ezeme at a glance"><div className="site-wrap stats-grid">{[['10','Industry sectors','Connected by purpose'],['05','Operating domains','Designed to work together'],['03','Existing businesses','Building from what is real'],['2025','Year incorporated','A long-term commitment']].map(([value,label,detail]) => <div className="stat" key={label}><strong>{value}</strong><p>{label}<br /><span>{detail}</span></p></div>)}</div></section>
+  <section className="section" id="the-group"><div className="site-wrap"><div className="section-heading"><div><p className="section-number">01 / THE GROUP</p><p className="eyebrow">A WHOLE, NOT A COLLECTION</p></div><h2>Independent businesses.<br /><em>A common purpose.</em></h2></div><div className="about-grid"><div><p className="eyebrow">ROOTED IN NIGERIA.<br />BUILT FOR GENERATIONS.</p></div><div className="about-text"><p>Ezeme is a Nigerian family enterprise headquartered at Nkpor, Anambra State. We are building ten industry sectors, organised into five domains, under a single holding structure — so our businesses trade with one another and can be held across generations.</p><p>The farms feed the factories. Energy powers what construction builds. Logistics moves the goods. Finance supports the whole, and education trains the people. The longer purpose is an institution: something the next generation inherits whole.</p></div></div></div></section>
+  <section className="section section-muted"><div className="site-wrap"><div className="section-heading"><div><p className="section-number">02 / OUR DOMAINS</p><p className="eyebrow">TEN SECTORS. FIVE CONNECTIONS.</p></div><h2>Different disciplines.<br /><em>Deliberately connected.</em></h2></div><div className="domain-list">{domains.map((domain,index) => <div className="domain-row" key={domain.title}><Link to="/sectors" hash={`domain-${index+1}`}><span className="domain-number">0{index+1}</span><div><h3>{domain.title}</h3><p>{domain.partner}</p></div><ArrowUpRight /></Link></div>)}<div className="section-link"><TextLink to="/sectors">The structure behind the sectors</TextLink></div></div></div></section>
+  <section className="section"><div className="site-wrap"><div className="projects-heading"><div><p className="section-number">03 / WHAT WE ARE BUILDING</p><h2>From intention <em>to industry.</em></h2></div><TextLink to="/projects">All projects</TextLink></div><div className="feature-project"><figure className="project-image"><img src={workshop} alt="Illustrative timber chair and woodworking tools" width={1200} height={800} loading="lazy" /><figcaption>Furniture & craftsmanship · Illustrative study</figcaption></figure><div className="project-copy"><span className="status-label"><span className="status-dot" /> FIRST PROJECT · NKPOR</span><h3>Furniture &<br /><em>Soft Furnishings.</em></h3><p>One workshop. Two crafts. A complete fit-out from a single contract. Furniture builds the frame; soft furnishings finish it — built for the institutions that need both.</p><p>The workshop is not yet built. This is the business we are starting.</p><div className="section-link"><TextLink to="/manufacturing">Inside the manufacturing plan</TextLink></div></div></div><div className="project-secondary"><article><span className="status-label">PLANNING · AWKA</span><h3>Ozi Ikoro</h3><p>A museum, art gallery and anthropological research hub. The message of the drum, told through objects, images and scholarship.</p><TextLink to="/projects">Explore the project</TextLink></article><article><span className="status-label">PLANNING · IDEMMILI & NKPOR</span><h3>Ezeme Agriculture</h3><p>Production where the land is affordable. Processing where the market is. A connected system from farm to finished product.</p><TextLink to="/projects">Explore the project</TextLink></article></div></div></section>
+  <section className="section section-muted"><div className="site-wrap"><div className="projects-heading"><div><p className="section-number">04 / BUSINESSES TODAY</p><h2>Real work. <em>Already underway.</em></h2></div><TextLink to="/businesses">Our businesses</TextLink></div><div className="business-grid">{businesses.map(b => <article className="business-item" key={b.name}><div className="business-meta"><span>{b.category.toUpperCase()}</span><span>{b.status.toUpperCase()}</span></div><h3>{b.name}</h3><p>{b.description}</p><a href={b.url} target="_blank" rel="noreferrer">{b.url.replace('https://','')}<ArrowUpRight size={15} /></a></article>)}</div></div></section>
+  <section className="section"><div className="site-wrap"><div className="section-heading"><div><p className="section-number">05 / THE RECORD</p><TextLink to="/record">Our dated record</TextLink></div><h2>Facts, <em>not promises.</em></h2></div><div className="record-list">{records.slice(0,3).map(r => <div className="record-row" key={r.name}><span className="year">{r.year}</span><h3>{r.name}</h3><p>{r.text}</p></div>)}</div></div></section>
+ </SiteLayout>;
 }
