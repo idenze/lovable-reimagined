@@ -1,5 +1,6 @@
 export const navigation = [
   { label: 'Overview', to: '/' },
+  { label: 'Family', to: '/family' },
   { label: 'Sectors', to: '/sectors' },
   { label: 'Manufacturing', to: '/manufacturing' },
   { label: 'Businesses', to: '/businesses' },
