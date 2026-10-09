@@ -13,3 +13,4 @@
 - Build public Ezeme pages as TanStack routes sharing a single branded layout and semantic CSS design system, so navigation and presentation stay consistent.
 - Keep imported public source descriptions in a browser-safe content module; never publish the uploaded private family records or infrastructure files.
 - Treat generated photographs as illustrative imagery rather than evidence of existing Ezeme facilities; display their illustrative status where they appear.
+- Keep the public Family section separate from the enterprise overview, with a distinct page identity; private family records remain unpublished because the public site is not an authenticated family archive.
